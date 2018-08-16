@@ -1,24 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {initialGrid, tick} from './game';
+import './index.css'
 
-class Cell extends React.Component {
+class Grid extends React.Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
-      alive: '.'
+      board: initialGrid()
     }
   }
 
-  render() {
+  render () {
     return (
-     <div>{this.state.alive}</div>
+      <div>
+        <div>
+          <div>{this.state.board[0]}</div>
+          <div>{this.state.board[1]}</div>
+          <div>{this.state.board[2]}</div>
+          <div>{this.state.board[3]}</div>
+          <div>{this.state.board[4]}</div>
+        </div>
+        <div>
+          <button className='play'
+            onClick={() => this.setState({
+              board: tick(this.state.board)
+            })
+            }
+          >
+            Play
+          </button>
+        </div>
+      </div>
     )
   }
-
 }
 
 ReactDOM.render(
-  <Cell />,
+  <Grid />,
   document.getElementById('root')
-);
+)
