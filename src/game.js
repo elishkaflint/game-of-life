@@ -16,7 +16,7 @@ module.exports = {
 
 }
 
-const DIRECTIONS = [
+const directions = [
   [-1, 0],  // N
   [-1, 1],  // NE
   [0, 1],   // E
@@ -76,7 +76,7 @@ function _ressurrect() {
 
 function _countLiveNeighbours(grid, x, y) {
   var count = 0
-  for (var i = 0; i < DIRECTIONS.length; i++) {
+  for (var i = 0; i < directions.length; i++) {
     if (_isWithinBorder(grid, x, y, i) && _isAlive(grid, x + _verticalMove(i), y + _horizontalMove(i))){
      count += 1
     }
@@ -110,9 +110,9 @@ function _width(grid) {
 }
 
 function _verticalMove(n) {
-  return DIRECTIONS[n][0]
+  return directions[n][0]
 }
 
 function _horizontalMove(n) {
-  return DIRECTIONS[n][1]
+  return directions[n][1]
 }
