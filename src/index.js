@@ -35,45 +35,6 @@ class Board extends React.Component {
     return array;
   }
 
-  render() {
-    const status = 'Game of Life';
-    const rules = [
-      'The game evolves in turns, commonly known as ticks.',
-      'All changes occur at the same time.',
-      'Any live cell with 2 or 3 live neighbours survives until next tick.',
-      'Any live cell with less than 2 live neighbours dies (underpopulation).',
-      'Any live cell with more than 3 live neighbours dies (overpopulation).',
-      'Any dead cell with exactly 3 neighbours becomes a live cell (reproduction).'
-    ]
-    return (
-      <div>
-          <div className="status">{status}</div>
-          <div className="rules">
-            <ul>
-              <li>{rules[0]}</li>
-              <li>{rules[1]}</li>
-              <li>{rules[2]}</li>
-              <li>{rules[3]}</li>
-              <li>{rules[4]}</li>
-              <li>{rules[5]}</li>
-            </ul>
-          </div>
-          {this.renderBoard()}
-          <button className='play' onClick={() => this.handlePlayClick()}>
-            Play
-          </button>
-      </div>
-    );
-  }
-
-  handlePlayClick() {
-    let squares = this.state.squares.map(row => row.slice())
-    let output = tick(squares)
-    this.setState({
-      squares: output
-    })
-  }
-
   renderBoard() {
     var array = []
     for(var n = 0; n < this.state.rows; n++) {
@@ -106,6 +67,52 @@ class Board extends React.Component {
     this.setState({
       squares: squares
     });
+  }
+
+  handlePlayClick() {
+    this.interval = setInterval(() => this.play(), 500);
+  }
+
+  play() {
+    let squares = this.state.squares.map(row => row.slice())
+    let output = tick(squares)
+    this.setState({
+      squares: output
+    })
+  }
+
+  render() {
+    const status = 'Game of Life';
+    const rules = [
+      'The game evolves in turns, commonly known as ticks.',
+      'All changes occur at the same time.',
+      'Any live cell with 2 or 3 live neighbours survives until next tick.',
+      'Any live cell with less than 2 live neighbours dies (underpopulation).',
+      'Any live cell with more than 3 live neighbours dies (overpopulation).',
+      'Any dead cell with exactly 3 neighbours becomes a live cell (reproduction).'
+    ]
+    return (
+      <div>
+          <div className="status">{status}</div>
+          <div className="rules">
+            <ul>
+              <li>{rules[0]}</li>
+              <li>{rules[1]}</li>
+              <li>{rules[2]}</li>
+              <li>{rules[3]}</li>
+              <li>{rules[4]}</li>
+              <li>{rules[5]}</li>
+            </ul>
+          </div>
+          {this.renderBoard()}
+          <button className='play' onClick={() => this.handlePlayClick()}>
+            Play
+          </button>
+          <button className='reset' onClick={() => this.handleResetClick()}>
+            Reset Board
+          </button>
+      </div>
+    );
   }
 
 }
