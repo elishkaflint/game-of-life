@@ -1,43 +1,128 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {initialGrid, tick} from './game';
-import './index.css'
+import {tick, rocket} from './game';
+import './index.css';
 
-class Grid extends React.Component {
+function Square(props) {
+  let cellClasses = "square " + ( props.value ? "active" : "inactive" )
+  return (
+    <button className={cellClasses} onClick={props.onClick}>
+      {props.value}
+    </button>
+  );
+}
 
-  constructor (props) {
-    super(props)
+class Board extends React.Component {
+
+  constructor(props) {
+    super(props);
     this.state = {
-      board: initialGrid()
+      rows: this.props.rows,
+      columns: this.props.columns,
+      squares: this.generateArray(this.props.rows, this.props.columns)
     }
   }
 
-  render () {
+  generateArray(rows, columns) {
+    let array = []
+    for(var i = 0; i < rows; i++){
+      let rows = []
+      for(var j = 0; j < columns; j++){
+        rows.push(false)
+      }
+    array.push(rows)
+    }
+    return array;
+  }
+
+  render() {
+    const status = 'Game of Life';
+    const rules = [
+      'The game evolves in turns, commonly known as ticks.',
+      'All changes occur at the same time.',
+      'Any live cell with 2 or 3 live neighbours survives until next tick.',
+      'Any live cell with less than 2 live neighbours dies (underpopulation).',
+      'Any live cell with more than 3 live neighbours dies (overpopulation).',
+      'Any dead cell with exactly 3 neighbours becomes a live cell (reproduction).'
+    ]
     return (
       <div>
-        <div>
-          <div>{this.state.board[0]}</div>
-          <div>{this.state.board[1]}</div>
-          <div>{this.state.board[2]}</div>
-          <div>{this.state.board[3]}</div>
-          <div>{this.state.board[4]}</div>
-        </div>
-        <div>
-          <button className='play'
-            onClick={() => this.setState({
-              board: tick(this.state.board)
-            })
-            }
-          >
+          <div className="status">{status}</div>
+          <div className="rules">
+            <ul>
+              <li>{rules[0]}</li>
+              <li>{rules[1]}</li>
+              <li>{rules[2]}</li>
+              <li>{rules[3]}</li>
+              <li>{rules[4]}</li>
+              <li>{rules[5]}</li>
+            </ul>
+          </div>
+          {this.renderBoard()}
+          <button className='play' onClick={() => this.handlePlayClick()}>
             Play
           </button>
-        </div>
       </div>
+    );
+  }
+
+  handlePlayClick() {
+    let squares = this.state.squares.map(row => row.slice())
+    let output = tick(squares)
+    this.setState({
+      squares: output
+    })
+  }
+
+  renderBoard() {
+    var array = []
+    for(var n = 0; n < this.state.rows; n++) {
+      array.push(<div className="board-row">{this.renderRow(n)}</div>)
+    }
+    return array
+  }
+
+  renderRow(n) {
+    var array = []
+    for(var i = 0; i < this.state.columns; i++) {
+      array.push(this.renderSquare(n, i))
+    }
+    return array
+  }
+
+  renderSquare(n, i) {
+    return (
+      <Square
+        value={this.state.squares[n][i]}
+        onClick={() => this.handleClick(n, i)}
+      />
     )
+    console.log(this.state.squares)
+  }
+
+  handleClick(n, i) {
+    var squares = this.state.squares.slice();
+    squares[n][i] = !squares[n][i];
+    this.setState({
+      squares: squares
+    });
+  }
+
+}
+
+class Game extends React.Component {
+  render() {
+    return (
+      <div className="game">
+        <Board rows={50} columns={80}/>
+      </div>
+    );
   }
 }
 
+// ========================================
+
 ReactDOM.render(
-  <Grid />,
+  <Game />,
   document.getElementById('root')
-)
+);
