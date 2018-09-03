@@ -35,13 +35,13 @@ Javascript, Jasmine, React
 
 ```
 $ git clone https://github.com/elishkaflint/game-of-life.git
-$ cd game-of-life
+$ cd game-of-life/public
 $ open index.html
 ```
 
 #### Or visit the site:
 
-The app is deployed on Heroku
+The app is deployed on [Heroku](https://game-of-life-elishka.herokuapp.com/)
 
 ____
 
