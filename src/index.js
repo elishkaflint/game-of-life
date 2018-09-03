@@ -101,8 +101,10 @@ class Board extends React.Component {
       'Any live cell with more than 3 live neighbours dies (overpopulation).',
       'Any dead cell with exactly 3 neighbours becomes a live cell (reproduction).'
     ]
+    const instructions = 'Set up the board by clicking some boxes below, then hit PLAY.'
     return (
       <div>
+        <div className="info">
           <div className="title">{title}</div>
           <div className="rules">
             <ul>
@@ -113,19 +115,21 @@ class Board extends React.Component {
               <li>{rules[4]}</li>
               <li>{rules[5]}</li>
             </ul>
+            {instructions}
           </div>
-          {this.renderBoard()}
-          <div className="buttons">
-            <button className='play' onClick={() => this.handlePlayClick()}>
-              Play
-            </button>
-            <button className='stop' onClick={() => this.handleStopClick()}>
-              Stop
-            </button>
-            <button className='reset' onClick={() => this.handleResetClick()}>
-              Reset
-            </button>
-          </div>
+        </div>
+        {this.renderBoard()}
+        <div className="buttons">
+          <button className='play' onClick={() => this.handlePlayClick()}>
+            PLAY
+          </button>
+          <button className='stop' onClick={() => this.handleStopClick()}>
+            STOP
+          </button>
+          <button className='reset' onClick={() => this.handleResetClick()}>
+            RESET
+          </button>
+        </div>
       </div>
     );
   }
