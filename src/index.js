@@ -73,6 +73,16 @@ class Board extends React.Component {
     this.interval = setInterval(() => this.play(), 500);
   }
 
+  handleStopClick() {
+    clearInterval(this.interval);
+  }
+
+  handleResetClick() {
+    this.setState({
+      squares: this.generateArray(this.props.rows, this.props.columns)
+    });
+  }
+
   play() {
     let squares = this.state.squares.map(row => row.slice())
     let output = tick(squares)
@@ -108,8 +118,11 @@ class Board extends React.Component {
           <button className='play' onClick={() => this.handlePlayClick()}>
             Play
           </button>
+          <button className='stop' onClick={() => this.handleStopClick()}>
+            Stop
+          </button>
           <button className='reset' onClick={() => this.handleResetClick()}>
-            Reset Board
+            Reset
           </button>
       </div>
     );
