@@ -92,7 +92,7 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = 'Game of Life';
+    const title = 'The Game of Life';
     const rules = [
       'The game evolves in turns, commonly known as ticks.',
       'All changes occur at the same time.',
@@ -103,7 +103,7 @@ class Board extends React.Component {
     ]
     return (
       <div>
-          <div className="status">{status}</div>
+          <div className="title">{title}</div>
           <div className="rules">
             <ul>
               <li>{rules[0]}</li>
@@ -115,15 +115,17 @@ class Board extends React.Component {
             </ul>
           </div>
           {this.renderBoard()}
-          <button className='play' onClick={() => this.handlePlayClick()}>
-            Play
-          </button>
-          <button className='stop' onClick={() => this.handleStopClick()}>
-            Stop
-          </button>
-          <button className='reset' onClick={() => this.handleResetClick()}>
-            Reset
-          </button>
+          <div className="buttons">
+            <button className='play' onClick={() => this.handlePlayClick()}>
+              Play
+            </button>
+            <button className='stop' onClick={() => this.handleStopClick()}>
+              Stop
+            </button>
+            <button className='reset' onClick={() => this.handleResetClick()}>
+              Reset
+            </button>
+          </div>
       </div>
     );
   }
