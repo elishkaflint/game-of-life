@@ -70,7 +70,7 @@ class Board extends React.Component {
   }
 
   handlePlayClick() {
-    this.interval = setInterval(() => this.play(), 500);
+    this.interval = setInterval(() => this.play(), 100);
   }
 
   handleStopClick() {
@@ -140,7 +140,7 @@ class Game extends React.Component {
   render() {
     return (
       <div className="game">
-        <Board rows={50} columns={80}/>
+        <Board rows={70} columns={100}/>
       </div>
     );
   }
